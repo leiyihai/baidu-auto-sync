@@ -1,16 +1,16 @@
 @echo off
 REM ============================================
-REM  百度网盘同步配置
-REM  修改后运行 setup_tasks.ps1 即可生效
+REM  BaiduNetdisk Sync Configuration
+REM  Run setup_tasks.ps1 after editing
 REM ============================================
 
-REM 百度网盘安装路径
+REM BaiduNetdisk install path
 set "BAIDU_PATH=%APPDATA%\baidu\BaiduNetdisk\BaiduNetdisk.exe"
 
-REM 夜间同步开始时间 (启动百度网盘)
+REM Sync window start (launch BaiduNetdisk)
 set "START_HOUR=0"
 set "START_MIN=0"
 
-REM 白天暂停开始时间 (关闭百度网盘)
+REM Sync window stop (close BaiduNetdisk)
 set "STOP_HOUR=8"
 set "STOP_MIN=0"

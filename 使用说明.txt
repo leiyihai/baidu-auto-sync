@@ -1,52 +1,23 @@
-============================================
-  百度网盘同步空间 - 定时启停方案
-============================================
+百度网盘同步空间 - 定时启停方案
+========================================
 
-## 原理
+原理：通过 Windows 计划任务在 0:00-8:00 启动百度网盘，其余时间关闭。
 
-通过 Windows 任务计划程序在指定时间启动/关闭百度网盘：
-- 同步时段: 百度网盘运行，同步空间自动同步
-- 暂停时段: 关闭百度网盘进程，停止同步
+使用方法
+--------
 
-## 文件说明
+1. 编辑 config.bat，修改同步时间或网盘路径
+2. 运行 setup_tasks.ps1 安装计划任务
+3. 修改配置后需重新运行 setup_tasks.ps1
 
-  config.bat         - 配置文件（修改同步时间和路径）
-  setup_tasks.ps1     - 安装/更新计划任务
-  start_baidu.bat     - 启动百度网盘
-  stop_baidu.bat      - 关闭百度网盘
-  startup_check.bat   - 开机判断时间，决定启停
+计划任务
+--------
+  BaiduSyncStart   - 每天 0:00 启动百度网盘
+  BaiduSyncStop    - 每天 8:00 关闭百度网盘
+  BaiduSyncStartup - 开机自动判断当前时段并启停
 
-## 使用方法
-
-### 1. 修改配置
-
-编辑 config.bat，按需修改:
-
-  set "BAIDU_PATH=..."   网盘安装路径
-  set "START_HOUR=0"     同步开始时间（默认凌晨0点）
-  set "START_MIN=0"
-  set "STOP_HOUR=8"      同步结束时间（默认早上8点）
-  set "STOP_MIN=0"
-
-### 2. 安装计划任务
-
-右键 setup_tasks.ps1 -> 使用 PowerShell 运行
-或在终端执行:
-  powershell -File "E:\baidu-auto-sync\setup_tasks.ps1"
-
-### 3. 修改配置后
-
-编辑 config.bat 后重新运行 setup_tasks.ps1 即可更新计划任务。
-
-## 计划任务说明
-
-  BaiduSyncStart   - 每天指定时间启动百度网盘
-  BaiduSyncStop    - 每天指定时间关闭百度网盘
-  BaiduSyncStartup - 开机时自动判断当前时段并启停
-
-## 手动操作
-
-  启动: 双击 start_baidu.bat
-  关闭: 双击 stop_baidu.bat
-  查看任务: schtasks /query /tn BaiduSync*
-  卸载任务: Remove-ScheduledTask BaiduSyncStart, BaiduSyncStop, BaiduSyncStartup
+手动操作
+--------
+  启动: start_baidu.bat
+  关闭: stop_baidu.bat
+  卸载: Get-ScheduledTask BaiduSync* | Unregister-ScheduledTask -Confirm:$false

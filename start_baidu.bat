@@ -1,13 +1,12 @@
 @echo off
-chcp 65001 >nul
 call "%~dp0config.bat"
 
-echo [%date% %time%] 启动百度网盘...
+echo [%date% %time%] Starting BaiduNetdisk...
 
 if exist "%BAIDU_PATH%" (
     start "" "%BAIDU_PATH%"
-    echo [%date% %time%] 百度网盘启动成功
+    echo [%date% %time%] BaiduNetdisk started successfully
 ) else (
-    echo [%date% %time%] 错误: 找不到百度网盘程序 (%BAIDU_PATH%)
+    echo [%date% %time%] ERROR: BaiduNetdisk not found (%BAIDU_PATH%)
     exit /b 1
 )
