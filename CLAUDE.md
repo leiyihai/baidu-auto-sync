@@ -15,6 +15,7 @@ This project manages the auto-start/stop of BaiduNetdisk (百度网盘) via Wind
 | `stop_baidu.bat` | Kills all BaiduNetdisk processes |
 | `startup_check.bat` | Runs at logon, decides whether to start or stop based on current time |
 | `setup_tasks.ps1` | Creates/updates the three Windows scheduled tasks |
+| `sync.log` | Auto-generated log file recording all start/stop events |
 
 ## Scheduled tasks created
 
@@ -41,6 +42,9 @@ Get-ScheduledTask -TaskName BaiduSync* | Unregister-ScheduledTask -Confirm:$fals
 
 # Check if BaiduNetdisk is running
 Get-Process -Name BaiduNetdisk -ErrorAction SilentlyContinue
+
+# View sync log
+Get-Content "E:\baidu-auto-sync\sync.log"
 ```
 
 ## Critical constraints

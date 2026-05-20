@@ -1,7 +1,10 @@
 @echo off
+setlocal enabledelayedexpansion
 call "%~dp0config.bat"
 
-echo [%date% %time%] Startup check (sync window: %START_HOUR%:00 - %STOP_HOUR%:00) ...
+set "LOG_FILE=%~dp0sync.log"
+
+echo [!date! !time!] Startup check (sync window: %START_HOUR%:00 - %STOP_HOUR%:00) ...>>"%LOG_FILE%"
 
 REM Get current hour (strip leading space)
 set NOW=%time:~0,2%
@@ -19,9 +22,9 @@ if %START_HOUR% lss %STOP_HOUR% (
 )
 
 if "%START_SYNC%"=="1" (
-    echo [%date% %time%] Within sync window, starting BaiduNetdisk...
+    echo [!date! !time!] Within sync window, starting BaiduNetdisk...>>"%LOG_FILE%"
     call "%~dp0start_baidu.bat"
 ) else (
-    echo [%date% %time%] Outside sync window, stopping BaiduNetdisk...
+    echo [!date! !time!] Outside sync window, stopping BaiduNetdisk...>>"%LOG_FILE%"
     call "%~dp0stop_baidu.bat"
 )
